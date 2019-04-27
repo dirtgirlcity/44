@@ -26,6 +26,7 @@ function love.load()
     h = 20
   })
   local menu = Menu({
+    name = "menu",
     x = 350,
     y = 150,
     w = 80,
@@ -38,12 +39,14 @@ function love.load()
     h = 110
   })
   local shelf = Shelf({
-    x = 200,
+    name = "shelf",
+    x = 300,
     y = 20,
-    w = 250,
-    h = 200
+    w = 100,
+    h = 100
   })
   local workbench = Workbench({
+    name = "workbench",
     x = 90,
     y = 180,
     w = 220,
@@ -51,10 +54,6 @@ function love.load()
   })
 
   table.insert(state.entities, shelf)
-  local items = util.loadItems(shelf.x, shelf.y)
-  for _, item in ipairs(items) do
-    table.insert(state.entities, item)
-  end
   table.insert(state.entities, menu)
   table.insert(state.entities, player)
   table.insert(state.entities, workbench)
@@ -67,5 +66,14 @@ function love.draw()
   love.graphics.scale(width/state.width, height/state.height)
   for _, entity in ipairs(state.entities) do
     entity:draw()
+  end
+end
+
+function love.mousepressed(x, y)
+  local gx, gy = util.translateCoordinates(x, y)
+  for _, entity in ipairs(state.entities) do
+    if entity.items ~= nil and next(entity.items) ~= nil then
+      entity:mousepressed(gx, gy)
+    end
   end
 end

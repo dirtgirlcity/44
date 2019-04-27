@@ -1,22 +1,48 @@
-local Item = require('item')
 local util = { }
 
-function util.loadItems(xBase, yBase)
+function util.loadItems()
   local items = { }
-  local numRows = 3
-  local numCols = 4
-  for row = 1, numRows do
-    for col = 1, numCols do
-      local i = Item({
-        x = xBase + col * 15,
-        y = yBase + row * 20,
-        name = "woop",
-        price = 10
-      })
-      table.insert(items, i)
-    end
+  local Item = require('item')
+
+  for i = 1, 10 do
+    local i = Item({
+      name = "item",
+      desc =  "item_" .. i,
+      price = 10,
+    })
+    table.insert(items, i)
   end
   return items
+end
+
+function util.organizeItems(container)
+  local xBase, yBase, numRows, numCols, items
+
+  xBase = container.x
+  yBase = container.y
+  numRows = container.r
+  numCols = container.c
+  items = container.items
+  
+  for row = 1, numRows do
+    for col = 1, numCols do
+      for idx, i in ipairs(items) do
+        if idx == ((row-1) * numCols) + col then
+          i.x = xBase + col * 15
+          i.y = yBase + row * 20
+        end
+      end
+    end
+  end
+end
+
+function util.translateCoordinates(x, y)
+  local ww, hw = love.graphics.getDimensions()
+  local wg = state.width
+  local hg = state.height
+  local gx = x * (wg/ww)
+  local gy = y * (hg/hw)
+  return gx, gy
 end
 
 return util

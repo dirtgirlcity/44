@@ -6,7 +6,8 @@ local function Info(spec)
     x = spec.x,
     y = spec.y,
     w = spec.w,
-    h = spec.h
+    h = spec.h,
+    text = spec.text
   }
   setmetatable(instance, infoClass)
   return instance
