@@ -37,8 +37,8 @@ function shelfClass:mousepressed(x, y)
 end
 
 function shelfClass:move(item)
-  item:remove(self.name)
-  item:insert("workbench")
+  item:remove(self)
+  item:insert(state.workbench)
   util.organizeItems(self)
 end
 

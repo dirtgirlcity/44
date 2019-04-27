@@ -7,11 +7,12 @@ function util.loadItems()
   for i = 1, 10 do
     local i = Item({
       name = "item",
-      desc =  "item_" .. i,
+      desc =  tostring(i),
       price = 10,
     })
     table.insert(items, i)
   end
+
   return items
 end
 

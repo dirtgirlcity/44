@@ -27,9 +27,18 @@ function workbenchClass:draw()
 end
 
 function workbenchClass:mousepressed(x, y)
- --for _, item in ipairs(self.items) do
- --   item:isTouched(x, y)
- -- end
+  for _, item in ipairs(self.items) do
+    local isTouched = item:isTouched(x, y)
+    if isTouched then
+      self:move(item)
+    end
+  end
+end
+
+function workbenchClass:move(item)
+  item:remove(self)
+  --item:insert(state.workbench)
+  util.organizeItems(self)
 end
 
 return Workbench

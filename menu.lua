@@ -27,9 +27,18 @@ function menuClass:draw()
 end
 
 function menuClass:mousepressed(x, y)
---  for _, item in ipairs(self.items) do
- --   item:mousepressed(x, y)
- -- end
+  for _, item in ipairs(self.items) do
+    local isTouched = item:isTouched(x, y)
+    if isTouched then
+      self:move(item)
+    end
+  end
+end
+
+function menuClass:move(item)
+  item:remove(self)
+  --item:insert(state.workbench)
+  util.organizeItems(self)
 end
 
 return Menu
