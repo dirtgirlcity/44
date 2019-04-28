@@ -29,8 +29,8 @@ end
 
 function shelfClass:mousepressed(x, y)
   for _, item in ipairs(self.items) do
-    local isTouched = item:isTouched(x, y)
-    if isTouched then
+    local isClicked = item:isClicked(x, y)
+    if isClicked then
       self:move(item)
     end
   end

@@ -26,8 +26,8 @@ end
 
 function workbenchClass:mousepressed(x, y)
   for _, item in ipairs(self.items) do
-    local isTouched = item:isTouched(x, y)
-    if isTouched then
+    local isClicked = item:isClicked(x, y)
+    if isClicked then
       self:move(item)
     end
   end
@@ -36,6 +36,7 @@ end
 function workbenchClass:move(item)
   if item.lastContainer:hasSpace() then
     item:remove(self)
+    state.health:restore(item.price)
     item:insert(item.lastContainer)
     item:setLastContainer(nil)
   end
@@ -43,6 +44,10 @@ end
 
 function workbenchClass:hasSpace()
   return #self.items < (self.r*self.c)
+end
+
+function workbenchClass:clear()
+  self.items = { }
 end
 
 return Workbench

@@ -1,6 +1,7 @@
 local menuClass = { }
 menuClass.__index = menuClass
 
+local levels = require('catalog')
 local util = require('util')
 
 local function Menu(spec)
@@ -29,8 +30,8 @@ end
 
 function menuClass:mousepressed(x, y)
   for _, item in ipairs(self.items) do
-    local isTouched = item:isTouched(x, y)
-    if isTouched then
+    local isClicked = item:isClicked(x, y)
+    if isClicked then
       self:move(item)
     end
   end
@@ -38,6 +39,7 @@ end
 
 function menuClass:move(item)
   if state.workbench:hasSpace() then
+    state.health:sacrifice(item.price)
     item:remove(self)
     item:insert(state.workbench)
     item:setLastContainer(self)
@@ -46,6 +48,10 @@ end
 
 function menuClass:hasSpace()
   return #self.items < (self.r*self.c)
+end
+
+function menuClass:loadItems(level)
+  self.items = levels[level].menuItems
 end
 
 return Menu

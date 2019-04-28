@@ -25,7 +25,7 @@ function itemClass:draw()
   love.graphics.print(self.desc, self.x, self.y)
 end
 
-function itemClass:isTouched(x, y)
+function itemClass:isClicked(x, y)
   return ( x >= self.x and x <= self.x + self.w )
     and ( y > self.y and y < self.y + self.h )
 end

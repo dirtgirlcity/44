@@ -17,14 +17,24 @@ end
 function healthClass:draw()
   love.graphics.setColor(0, 50, 50)
   love.graphics.rectangle( 'fill', self.x, self.y, self.w, self.h )
+  love.graphics.setColor(200, 200, 200)
+  love.graphics.rectangle( 'fill', self.x, self.y, self.pts, self.h )
+end
+
+function healthClass:restore(years)
+  if years ~= nil then
+    self.pts = self.pts + years
+  end
+end
+
+function healthClass:sacrifice(years)
+  if years ~= nil then
+    self.pts = self.pts - years
+  end
 end
 
 function healthClass:isGone()
-  if self.pts <= 0 then
-    return true
-  else
-    return false
-  end
+  return self.pts <= 0
 end
 
 return Health

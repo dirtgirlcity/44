@@ -6,6 +6,7 @@ local Recipe = require('recipe')
 local Shelf = require ('shelf')
 local State = require('state')
 local Workbench = require('workbench')
+
 local util = require('util')
 
 function love.load()
@@ -13,13 +14,13 @@ function love.load()
   love.window.setTitle("the price is right")
 
   state = State()
-  local info = Info({
+  state.info = Info({
     x = 90,
     y = 230,
     w = 200,
-    h = 30,
+    h = 40,
   })
-  local health = Health({
+  state.health = Health({
     x = 40,
     y = 20,
     w = 100,
@@ -32,11 +33,19 @@ function love.load()
     w = 80,
     h = 100,
   })
-  local player = Player({
+  state.player = Player({
     x = 30,
     y = 80,
     w = 50,
     h = 110
+  })
+  state.recipe = Recipe({
+    name = "recipe",
+    x = 100,
+    y = 240,
+    w = 180,
+    h = 20,
+    level = 1
   })
   state.shelf = Shelf({
     name = "shelf",
@@ -55,10 +64,11 @@ function love.load()
 
   table.insert(state.entities, state.shelf)
   table.insert(state.entities, state.menu)
-  table.insert(state.entities, player)
+  table.insert(state.entities, state.player)
   table.insert(state.entities, state.workbench)
-  table.insert(state.entities, info)
-  table.insert(state.entities, health)
+  table.insert(state.entities, state.health)
+  table.insert(state.entities, state.info)
+  table.insert(state.entities, state.recipe)
 end
 
 function love.draw()
