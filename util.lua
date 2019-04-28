@@ -1,16 +1,16 @@
 local util = { }
 
-function util.loadItems()
+function util.loadItems(num)
   local items = { }
   local Item = require('item')
 
-  for i = 1, 10 do
-    local i = Item({
+  for i = 1, num do
+    local item = Item({
       name = "item",
       desc =  tostring(i),
       price = 10,
     })
-    table.insert(items, i)
+    table.insert(items, item)
   end
 
   return items
@@ -24,7 +24,7 @@ function util.organizeItems(container)
   numRows = container.r
   numCols = container.c
   items = container.items
-  
+
   for row = 1, numRows do
     for col = 1, numCols do
       for idx, i in ipairs(items) do

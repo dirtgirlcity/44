@@ -1,8 +1,6 @@
 local workbenchClass = { }
 workbenchClass.__index = workbenchClass
 
-local util = require('util')
-
 local function Workbench(spec)
   local instance = {
     name = spec.name,
@@ -36,9 +34,15 @@ function workbenchClass:mousepressed(x, y)
 end
 
 function workbenchClass:move(item)
-  item:remove(self)
-  --item:insert(state.workbench)
-  util.organizeItems(self)
+  if item.lastContainer:hasSpace() then
+    item:remove(self)
+    item:insert(item.lastContainer)
+    item:setLastContainer(nil)
+  end
+end
+
+function workbenchClass:hasSpace()
+  return #self.items < (self.r*self.c)
 end
 
 return Workbench

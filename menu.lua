@@ -12,9 +12,10 @@ local function Menu(spec)
     h = spec.h,
     r = 4,
     c = 1,
-    items = { }
+    items = util.loadItems(3)
   }
   setmetatable(instance, menuClass)
+  util.organizeItems(instance)
   return instance
 end
 
@@ -36,9 +37,15 @@ function menuClass:mousepressed(x, y)
 end
 
 function menuClass:move(item)
-  item:remove(self)
-  --item:insert(state.workbench)
-  util.organizeItems(self)
+  if state.workbench:hasSpace() then
+    item:remove(self)
+    item:insert(state.workbench)
+    item:setLastContainer(self)
+  end
+end
+
+function menuClass:hasSpace()
+  return #self.items < (self.r*self.c)
 end
 
 return Menu

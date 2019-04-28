@@ -12,6 +12,7 @@ local function Item(spec)
     price = spec.price,
     w = 10,
     h = 10
+    --lastContainer = container i.e. "shelf"
   }
   setmetatable(instance, itemClass)
   return instance
@@ -25,12 +26,8 @@ function itemClass:draw()
 end
 
 function itemClass:isTouched(x, y)
-  if ( x >= self.x and x <= self.x + self.w )
-    and ( y > self.y and y < self.y + self.h ) then
-    return true
-  else
-    return false
-  end
+  return ( x >= self.x and x <= self.x + self.w )
+    and ( y > self.y and y < self.y + self.h )
 end
 
 function itemClass:insert(container)
@@ -44,6 +41,10 @@ function itemClass:remove(container)
       table.remove(container.items, idx)
     end
   end
+end
+
+function itemClass:setLastContainer(container)
+  self.lastContainer = container
 end
 
 return Item

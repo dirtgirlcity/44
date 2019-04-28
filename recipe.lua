@@ -20,7 +20,7 @@ function recipeClass:draw()
   love.graphics.rectangle ( 'fill', self.x, self.y, self.w, self.h )
 end
 
-function recipeClass:getItems()
+function recipeClass:loadMenu()
   return self.items()
 end
 
