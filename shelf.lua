@@ -1,6 +1,7 @@
 local shelfClass = { }
 shelfClass.__index = shelfClass
 
+local state = require('state')
 local util = require('util')
 
 local function Shelf(spec)

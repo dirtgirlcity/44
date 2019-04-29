@@ -3,6 +3,7 @@ menuClass.__index = menuClass
 
 local levels = require('catalog')
 local util = require('util')
+local state = require('state')
 
 local function Menu(spec)
   local instance = {

@@ -1,6 +1,8 @@
 local workbenchClass = { }
 workbenchClass.__index = workbenchClass
 
+local state = require('state')
+
 local function Workbench(spec)
   local instance = {
     name = spec.name,

@@ -3,6 +3,7 @@ recipeClass.__index = recipeClass
 
 local levels = require('catalog')
 local util = require('util')
+local state = require('state')
 
 local function Recipe(spec)
   local instance = {

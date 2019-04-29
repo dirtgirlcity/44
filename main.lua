@@ -4,16 +4,14 @@ local Menu = require('menu')
 local Player = require('player')
 local Recipe = require('recipe')
 local Shelf = require ('shelf')
-local State = require('state')
 local Workbench = require('workbench')
 
-local util = require('util')
+local state = require('state')
 
 function love.load()
   love.graphics.setBackgroundColor(0, 0, 0)
   love.window.setTitle("the price is right")
 
-  state = State()
   state.info = Info({
     x = 90,
     y = 230,
@@ -84,7 +82,12 @@ function love.draw()
 end
 
 function love.mousepressed(x, y)
-  local gx, gy = util.translateCoordinates(x, y)
+  local ww, hw = love.graphics.getDimensions()
+  local wg = state.width
+  local hg = state.height
+  local gx = x * (wg/ww)
+  local gy = y * (hg/hw)
+
   if state.phase ~= "play" then
     state:mousepressed(gx, gy)
   else

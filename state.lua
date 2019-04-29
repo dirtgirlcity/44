@@ -1,7 +1,7 @@
 local stateClass = { }
 stateClass.__index = stateClass
 
-local levels = require ('catalog')
+local levels = require('catalog')
 
 local function State()
   local instance = {
@@ -41,7 +41,7 @@ function stateClass:draw()
   end
 end
 
-function stateClass:mousepressed(x, y)
+function stateClass:mousepressed()
   if self.phase == "intro1" then
     self.phase = "intro2"
     return
@@ -60,4 +60,4 @@ function stateClass:endGame(success)
   self.phase = success
 end
 
-return State
+return State()

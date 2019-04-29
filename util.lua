@@ -59,13 +59,4 @@ function util.organizeItems(container)
   end
 end
 
-function util.translateCoordinates(x, y)
-  local ww, hw = love.graphics.getDimensions()
-  local wg = state.width
-  local hg = state.height
-  local gx = x * (wg/ww)
-  local gy = y * (hg/hw)
-  return gx, gy
-end
-
 return util
