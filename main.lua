@@ -74,16 +74,24 @@ end
 function love.draw()
   local width, height = love.graphics.getDimensions()
   love.graphics.scale(width/state.width, height/state.height)
-  for _, entity in ipairs(state.entities) do
-    entity:draw()
+  if state.phase ~= "play" then
+    state:draw()
+  else
+    for _, entity in ipairs(state.entities) do
+      entity:draw()
+    end
   end
 end
 
 function love.mousepressed(x, y)
   local gx, gy = util.translateCoordinates(x, y)
-  for _, entity in ipairs(state.entities) do
-    if entity.items ~= nil and next(entity.items) ~= nil then
-      entity:mousepressed(gx, gy)
+  if state.phase ~= "play" then
+    state:mousepressed(gx, gy)
+  else
+    for _, entity in ipairs(state.entities) do
+      if entity.items ~= nil and next(entity.items) ~= nil then
+        entity:mousepressed(gx, gy)
+      end
     end
   end
 end
